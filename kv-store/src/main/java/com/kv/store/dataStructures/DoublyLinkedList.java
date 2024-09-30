@@ -4,8 +4,8 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class DoublyLinkedList implements LinkedList {
 
-  private ListNode head;
-  private ListNode tail;
+  private volatile ListNode head;
+  private volatile ListNode tail;
   private final ReentrantLock lock;
 
   public DoublyLinkedList() {
@@ -69,5 +69,18 @@ public class DoublyLinkedList implements LinkedList {
     synchronized (lock) {
       return head;
     }
+  }
+
+  public ListNode removeFirst() {
+    if (head != null) {
+      synchronized (lock) {
+        if (head != null) {
+          ListNode temp = head;
+          removeNode(head);
+          return temp;
+        }
+      }
+    }
+    return null;
   }
 }

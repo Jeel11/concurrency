@@ -1,4 +1,4 @@
-package main.java.com.kv.store.cache;
+package main.java.com.kv.store.core;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -9,7 +9,7 @@ import main.java.com.kv.store.model.Average;
 import main.java.com.kv.store.model.KeyValueNode;
 import main.java.com.kv.store.provider.TimeProvider;
 
-public class TimeBasedKVStore implements Cache<String, Integer> {
+public class TimeBasedKVStore implements KVStore<String, Integer> {
 
   private Map<String, KeyValueNode<String, Integer>> keyValueMap;
   private final Map<String, ReentrantLock> keyLevelLock;

@@ -2,7 +2,7 @@ package main.java.com.kv.store;
 
 import java.util.ArrayList;
 import java.util.List;
-import main.java.com.kv.store.cache.TimeBasedKVStore;
+import main.java.com.kv.store.core.TimeBasedKVStore;
 import main.java.com.kv.store.provider.TimeProvider;
 
 public class Application {
