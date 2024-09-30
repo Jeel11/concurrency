@@ -1,12 +1,12 @@
 import main.java.com.concurrency.cache.core.Cache;
-import main.java.com.concurrency.cache.core.LRUCache;
+import main.java.com.concurrency.cache.core.LFUCache;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Application {
     public static void main(String[] args) throws InterruptedException {
-        Cache<Integer, Integer> lruCache = new LRUCache<>(5);
+        Cache<Integer, Integer> lfuCache = new LFUCache<>(5);
 
 //        lruCache.put("k1", "A");
 //        lruCache.put("k2", "B");
@@ -22,8 +22,8 @@ public class Application {
 
         for(int i=1;i<=50;i++) {
             int finalI = i;
-            threads.add(new Thread(() -> lruCache.put(finalI, finalI)));
-            threads.add(new Thread(() -> System.out.println("GET: k="+finalI+", v="+lruCache.get(finalI))));
+            threads.add(new Thread(() -> lfuCache.put(finalI/10, finalI)));
+            threads.add(new Thread(() -> lfuCache.get(finalI/10)));
         }
 
         for (Thread thread: threads) {
@@ -34,6 +34,6 @@ public class Application {
             thread.join();
         }
 
-        System.out.println("Cache size="+lruCache.size());
+        System.out.println("Cache size="+lfuCache.size());
     }
 }

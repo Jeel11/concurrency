@@ -15,6 +15,20 @@ public class DoublyLinkedList implements LinkedList {
   }
 
   @Override
+  public void addFirst(ListNode value) {
+    synchronized (lock) {
+      if (head == null) {
+        head = value;
+        tail = value;
+      } else {
+        value.setNext(head);
+        head.setPrev(value);
+        head = head.getPrev();
+      }
+    }
+  }
+
+  @Override
   public void addLast(ListNode value) {
     synchronized (lock) {
       if (tail == null) {
@@ -82,5 +96,17 @@ public class DoublyLinkedList implements LinkedList {
       }
     }
     return null;
+  }
+
+  @Override
+  public void insertNodeAfter(ListNode prevNode, ListNode nextNode) {
+    if (prevNode != null && nextNode != null) {
+      synchronized (lock) {
+        ListNode next = prevNode.getNext();
+        prevNode.setNext(nextNode);
+        nextNode.setPrev(prevNode);
+        nextNode.setNext(next);
+      }
+    }
   }
 }
